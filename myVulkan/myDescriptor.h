@@ -26,7 +26,7 @@ public:
 
 	myDescriptor(VkDevice logicalDevice, uint32_t frameSize);
 
-	void createDescriptorPool(uint32_t uniformBufferNumAllLayout, std::vector<uint32_t> textureNumAllLayout);
+	void createDescriptorPool(uint32_t uniformBufferNumAllLayout, std::vector<VkDescriptorType> types, std::vector<uint32_t> textureNumAllLayout);
 
 	DescriptorObject createDescriptorObject(uint32_t uniformBufferNum, uint32_t textureNum, std::vector<VkShaderStageFlagBits>* uniformBufferUsages, std::vector<VkDescriptorType>* textureDescriptorType,
 		uint32_t descriptorSetSize, std::vector<std::vector<VkBuffer>>* uniformBuffers, std::vector < std::vector<VkImageView>>* textureViews, std::vector<std::vector<VkSampler>>* textureSamplers);

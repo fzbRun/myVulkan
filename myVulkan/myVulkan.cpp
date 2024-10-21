@@ -671,9 +671,10 @@ private:
 
 		uint32_t uniformBufferNumAllLayout = 1;
 		std::vector<uint32_t> textureNumAllLayout;
-		textureNumAllLayout.push_back(uniqueMeshToAlbedoTextures.size());
-		textureNumAllLayout.push_back(uniqueMeshToNormalTextures.size());
-		my_descriptor->createDescriptorPool(uniformBufferNumAllLayout, textureNumAllLayout);	//这里是一共有几个，要算上所有的布局
+		std::vector<VkDescriptorType> types = { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT };
+		textureNumAllLayout.push_back(uniqueMeshToAlbedoTextures.size() + uniqueMeshToNormalTextures.size());
+		textureNumAllLayout.push_back(3);
+		my_descriptor->createDescriptorPool(uniformBufferNumAllLayout, types, textureNumAllLayout);	//这里是一共有几个，要算上所有的布局
 
 		//创造uniformDescriptorObject
 		std::vector<VkShaderStageFlagBits> usages;

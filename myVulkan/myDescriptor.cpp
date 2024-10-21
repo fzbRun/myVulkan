@@ -9,7 +9,7 @@ myDescriptor::myDescriptor(VkDevice logicalDevice, uint32_t frameSize) {
 //这里其实挺奇怪的，因为描述符池是将不同的描述符分开来记录的，而描述符集合是将不同描述符配对记录的
 //如描述符池记录有几种描述符，每种描述符有几个；而描述符集合记录每个集合由哪些描述符组成，一共有几个集合
 //相当于描述符池从自己的各个分池中拿出描述符组成一个描述符集合
-void myDescriptor::createDescriptorPool(uint32_t uniformBufferNumAllLayout, std::vector<uint32_t> textureNumAllLayout) {
+void myDescriptor::createDescriptorPool(uint32_t uniformBufferNumAllLayout, std::vector<VkDescriptorType> types, std::vector<uint32_t> textureNumAllLayout) {
 
 	std::vector<VkDescriptorPoolSize> poolSizes{};
 	VkDescriptorPoolSize poolSize;
@@ -20,7 +20,7 @@ void myDescriptor::createDescriptorPool(uint32_t uniformBufferNumAllLayout, std:
 	}
 	for (int i = 0; i < textureNumAllLayout.size(); i++) {
 
-		poolSize.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		poolSize.type = types[i];
 		poolSize.descriptorCount = static_cast<uint32_t>(this->frameSize * textureNumAllLayout[i]);
 		poolSizes.push_back(poolSize);
 
