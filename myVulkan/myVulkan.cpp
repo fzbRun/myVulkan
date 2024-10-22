@@ -1068,7 +1068,7 @@ private:
 		submitInfo.signalSemaphoreCount = 1;
 		submitInfo.pSignalSemaphores = signalSemaphores;
 
-		//只有当所有命令执行完成后才释放fence（提交后立即返回，不需要等待命令执行完成），也就是说提交的过程是临界区，需要互斥
+		//只有当所有命令执行完成后才释放fence，也就是说提交的过程是临界区，需要互斥
 		// 这可以保证CPU和GPU的同步
 		//recordCommandBuffer函数记录渲染指令，通过vkQueueSubmit交给graphicsQueue执行
 		if (vkQueueSubmit(my_device->graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
